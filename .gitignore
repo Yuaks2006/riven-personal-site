@@ -1,0 +1,7 @@
+.next/
+out/
+node_modules/
+.vercel/
+.server.pid
+qa-*.png
+*.log
