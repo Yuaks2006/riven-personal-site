@@ -15,6 +15,7 @@ import { CopyButton } from "@/components/CopyButton";
 import { Lightbox } from "@/components/Lightbox";
 import { WorkModal } from "@/components/WorkModal";
 import { ArrowRight, GithubLogo, LinkedinLogo, Sparkle, WaveSine } from "@phosphor-icons/react";
+import { withBasePath } from "@/lib/paths";
 import { motion, useScroll, useTransform } from "motion/react";
 import Link from "next/link";
 import { useState } from "react";
@@ -71,7 +72,7 @@ export function HomePage() {
         <motion.div className="relative mx-auto w-full max-w-[520px]" style={{ y: avatarY }} initial={{ opacity: 0, scale: 0.92 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8, delay: 0.1 }}>
           <div className="absolute -inset-10 rounded-full bg-[radial-gradient(circle,rgba(105,216,255,0.34),transparent_62%)] blur-2xl" />
           <div className="glass relative overflow-hidden rounded-[44px] p-4">
-            <img src={profile.avatar} alt="Riven IP avatar" className="aspect-square w-full rounded-[34px] object-cover" />
+            <img src={withBasePath(profile.avatar)} alt="Riven IP avatar" className="aspect-square w-full rounded-[34px] object-cover" />
             <div className="absolute bottom-7 left-7 right-7 flex items-center justify-between rounded-full bg-white/86 px-4 py-3 text-sm shadow-xl">
               <span className="font-semibold">Agent Builder</span>
               <span className="rainbow-text font-semibold">Community Node</span>
@@ -170,7 +171,7 @@ export function HomePage() {
             </button>
           </div>
           <button className="group focus-ring overflow-hidden rounded-[40px] border border-black/10 bg-white text-left shadow-sm" type="button" onClick={() => setWorkOpen(true)}>
-            <img src={profile.portrait} alt="Riven in real life" className="h-[520px] w-full object-cover transition duration-700 group-hover:scale-105" />
+            <img src={withBasePath(profile.portrait)} alt="Riven in real life" className="h-[520px] w-full object-cover transition duration-700 group-hover:scale-105" />
             <div className="p-7">
               <h3 className="text-3xl font-semibold">Riven in Real Life</h3>
               <p className="mt-3 text-[#667085]">从虚拟 IP 到真实行动者。</p>

@@ -3,6 +3,7 @@
 /* eslint-disable @next/next/no-img-element */
 
 import type { ImageAsset } from "@/data/site";
+import { withBasePath } from "@/lib/paths";
 import { X } from "@phosphor-icons/react";
 import { useEffect } from "react";
 
@@ -43,7 +44,7 @@ export function Lightbox({ image, onClose }: LightboxProps) {
         <X size={20} />
       </button>
       <img
-        src={image.src}
+        src={withBasePath(image.src)}
         alt={image.alt}
         className="max-h-[88dvh] max-w-[92vw] rounded-[28px] object-contain shadow-2xl"
         onClick={(event) => event.stopPropagation()}

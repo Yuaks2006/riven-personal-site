@@ -4,6 +4,7 @@
 
 import { Lightbox } from "@/components/Lightbox";
 import type { ImageAsset } from "@/data/site";
+import { withBasePath } from "@/lib/paths";
 import { useState } from "react";
 
 export function DetailGallery({ images }: { images: ImageAsset[] }) {
@@ -15,7 +16,7 @@ export function DetailGallery({ images }: { images: ImageAsset[] }) {
       <div className="mt-10 grid gap-4 md:grid-cols-2">
         {images.map((image) => (
           <button className="focus-ring group overflow-hidden rounded-[30px] border border-black/10 bg-white text-left" type="button" key={image.src} onClick={() => setActive(image)}>
-            <img src={image.src} alt={image.alt} className="h-80 w-full object-cover transition duration-700 group-hover:scale-105" />
+            <img src={withBasePath(image.src)} alt={image.alt} className="h-80 w-full object-cover transition duration-700 group-hover:scale-105" />
           </button>
         ))}
       </div>

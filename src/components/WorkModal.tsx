@@ -3,6 +3,7 @@
 /* eslint-disable @next/next/no-img-element */
 
 import { workExperience, type ImageAsset } from "@/data/site";
+import { withBasePath } from "@/lib/paths";
 import { ArrowSquareOut, X } from "@phosphor-icons/react";
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect } from "react";
@@ -85,7 +86,7 @@ export function WorkModal({ open, onClose, onImage }: WorkModalProps) {
                     key={image.src}
                     onClick={() => onImage(image)}
                   >
-                    <img src={image.src} alt={image.alt} className="h-72 w-full object-cover object-top transition duration-500 group-hover:scale-105" />
+                    <img src={withBasePath(image.src)} alt={image.alt} className="h-72 w-full object-cover object-top transition duration-500 group-hover:scale-105" />
                     <span className="absolute bottom-3 right-3 inline-flex items-center gap-2 rounded-full bg-white/90 px-3 py-2 text-xs font-medium text-[#111318]">
                       View full <ArrowSquareOut size={14} />
                     </span>
