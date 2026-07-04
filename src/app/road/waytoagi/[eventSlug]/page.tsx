@@ -1,7 +1,9 @@
 import { BackLink } from "@/components/BackLink";
 import { DetailGallery } from "@/components/DetailGallery";
 import { getEvent, waytoagiEvents } from "@/data/site";
+import { MapPin, UserCircle } from "@phosphor-icons/react/dist/ssr";
 import { notFound } from "next/navigation";
+import type { ReactNode } from "react";
 
 export function generateStaticParams() {
   return waytoagiEvents.map((event) => ({ eventSlug: event.slug }));
@@ -14,24 +16,46 @@ export default async function EventPage({ params }: { params: Promise<{ eventSlu
 
   return (
     <main className="min-h-[100dvh] px-5 py-8">
-      <div className="mx-auto max-w-5xl">
+      <div className="mx-auto max-w-7xl">
         <BackLink href="/road/waytoagi" label="Back to WaytoAGI" />
-        <section className="mt-10 rounded-[44px] border border-black/10 bg-white/74 p-7 shadow-xl shadow-sky-100/50 backdrop-blur-xl md:p-12">
-          <p className="text-sm text-[#667085]">{event.date} · {event.place}</p>
-          <h1 className="mt-6 text-4xl font-semibold leading-tight md:text-7xl">{event.title}</h1>
-          <p className="mt-5 text-xl text-[#475467]">{event.role}</p>
-          <p className="mt-8 max-w-3xl text-xl leading-9 text-[#252a33]">{event.summary}</p>
-          <div className="mt-10 space-y-4">
-            {event.actions.map((action) => (
-              <p className="border-l-2 border-[#69d8ff] pl-4 leading-8 text-[#475467]" key={action}>
-                {action}
-              </p>
-            ))}
-          </div>
-          {event.result ? <p className="mt-8 rounded-[26px] bg-[#f3fbff] p-5 leading-8 text-[#252a33]">{event.result}</p> : null}
-          <DetailGallery images={event.images} />
+        <section className="mt-8 grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
+          <aside className="spatial-surface h-fit rounded-[46px] p-7 md:p-10">
+            <p className="text-sm text-[var(--ink-faint)]">{event.date}</p>
+            <h1 className="mt-5 text-4xl font-semibold leading-tight md:text-6xl">{event.title}</h1>
+            <div className="mt-8 grid gap-3">
+              <MetaLine icon={<MapPin size={18} />} text={event.place} />
+              <MetaLine icon={<UserCircle size={18} />} text={event.role} />
+            </div>
+          </aside>
+
+          <article className="spatial-surface overflow-hidden rounded-[52px] p-7 md:p-12">
+            <div className="relative -m-7 mb-10 min-h-[300px] overflow-hidden rounded-b-[44px] p-8 md:-m-12 md:mb-12 md:p-12">
+              <div className="absolute inset-0 rainbow-stroke opacity-16 blur-2xl" />
+              <div className="absolute inset-0 soft-air" />
+              <p className="relative max-w-3xl text-3xl font-semibold leading-tight md:text-5xl">{event.summary}</p>
+            </div>
+            <div className="grid gap-4">
+              {event.actions.map((action, index) => (
+                <div className="grid gap-4 rounded-[30px] border border-[var(--soft-line)] bg-white/70 p-5 md:grid-cols-[80px_1fr]" key={action}>
+                  <span className="text-sm text-[var(--ink-faint)]">0{index + 1}</span>
+                  <p className="text-lg leading-8 text-[var(--ink-soft)]">{action}</p>
+                </div>
+              ))}
+            </div>
+            {event.result ? <p className="mt-8 rounded-[30px] bg-[#f3fafb] p-6 text-lg leading-8 text-[var(--ink)]">{event.result}</p> : null}
+            <DetailGallery images={event.images} />
+          </article>
         </section>
       </div>
     </main>
+  );
+}
+
+function MetaLine({ icon, text }: { icon: ReactNode; text: string }) {
+  return (
+    <div className="flex items-center gap-3 rounded-[24px] border border-[var(--soft-line)] bg-white/72 p-4 text-[var(--ink-soft)]">
+      {icon}
+      <span>{text}</span>
+    </div>
   );
 }

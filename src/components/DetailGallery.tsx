@@ -15,7 +15,7 @@ export function DetailGallery({ images }: { images: ImageAsset[] }) {
     <>
       <div className="mt-10 grid gap-4 md:grid-cols-2">
         {images.map((image) => (
-          <button className="focus-ring group overflow-hidden rounded-[30px] border border-black/10 bg-white text-left" type="button" key={image.src} onClick={() => setActive(image)}>
+          <button className="image-sheen focus-ring magnetic relative overflow-hidden rounded-[34px] border border-white/80 bg-white text-left shadow-[0_24px_80px_rgba(42,103,143,0.12)]" type="button" key={image.src} onClick={() => setActive(image)}>
             <img src={withBasePath(image.src)} alt={image.alt} className="h-80 w-full object-cover transition duration-700 group-hover:scale-105" />
           </button>
         ))}

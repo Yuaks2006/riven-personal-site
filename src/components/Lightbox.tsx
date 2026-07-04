@@ -30,13 +30,13 @@ export function Lightbox({ image, onClose }: LightboxProps) {
 
   return (
     <div
-      className="fixed inset-0 z-50 grid place-items-center bg-[#111318]/82 p-4 backdrop-blur-xl"
+      className="fixed inset-0 z-50 grid place-items-center bg-[#101217]/86 p-4 backdrop-blur-xl"
       role="dialog"
       aria-modal="true"
       onClick={onClose}
     >
       <button
-        className="focus-ring absolute right-5 top-5 rounded-full bg-white p-3 text-[#111318] shadow-xl"
+        className="focus-ring absolute right-5 top-5 rounded-full bg-white p-3 text-[var(--ink)] shadow-xl"
         type="button"
         onClick={onClose}
         aria-label="Close image preview"
@@ -46,7 +46,7 @@ export function Lightbox({ image, onClose }: LightboxProps) {
       <img
         src={withBasePath(image.src)}
         alt={image.alt}
-        className="max-h-[88dvh] max-w-[92vw] rounded-[28px] object-contain shadow-2xl"
+        className="max-h-[88dvh] max-w-[92vw] rounded-[32px] object-contain shadow-2xl"
         onClick={(event) => event.stopPropagation()}
       />
     </div>
