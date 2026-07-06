@@ -1,73 +1,152 @@
-import { BackLink } from "@/components/BackLink";
-import { DetailGallery } from "@/components/DetailGallery";
-import { getProject, projects } from "@/data/site";
-import { ArrowSquareOut } from "@phosphor-icons/react/dist/ssr";
+import Link from "next/link";
 import { notFound } from "next/navigation";
+import Reveal from "../../../components/Reveal";
+import SiteNav from "../../../components/SiteNav";
+import { getProject, projects } from "../../../data/site";
+import { withBasePath } from "../../../lib/paths";
 
 export function generateStaticParams() {
   return projects.map((project) => ({ slug: project.slug }));
 }
 
-export default async function ProjectPage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function WorkDetailPage({
+  params
+}: {
+  params: Promise<{ slug: string }>;
+}) {
   const { slug } = await params;
   const project = getProject(slug);
   if (!project) notFound();
 
-  return (
-    <main className="min-h-[100dvh] px-5 py-8">
-      <div className="mx-auto max-w-7xl">
-        <BackLink href="/#work" label="Back to work" />
-        <section className="mt-8 grid gap-8 lg:grid-cols-[0.82fr_1.18fr]">
-          <aside className="spatial-surface sticky top-8 h-fit rounded-[42px] p-7">
-            <p className="text-sm text-[var(--ink-faint)]">Project window</p>
-            <h1 className="mt-5 text-6xl font-semibold leading-none md:text-8xl">{project.title}</h1>
-            <p className="mt-4 text-2xl text-[var(--ink-soft)]">{project.subtitle}</p>
-            <div className="mt-8 grid gap-3">
-              {project.period ? <InfoPill label="Period" value={project.period} /> : null}
-              <InfoPill label="Role" value={project.role} />
-              <InfoPill label="Type" value={project.type} />
-            </div>
-            {project.projectUrl ? (
-              <a className="signal-button mt-8 w-fit bg-[var(--ink)] text-white hover:bg-black" href={project.projectUrl} target="_blank" rel="noreferrer">
-                Open project <ArrowSquareOut size={16} />
-              </a>
-            ) : null}
-          </aside>
+  const idx = projects.findIndex((p) => p.slug === slug);
+  const prev = projects[(idx - 1 + projects.length) % projects.length];
+  const next = projects[(idx + 1) % projects.length];
 
-          <article className="spatial-surface overflow-hidden rounded-[52px] p-7 md:p-12">
-            <div className="soft-air -m-7 mb-10 min-h-[320px] rounded-b-[44px] p-8 md:-m-12 md:mb-12 md:p-12">
-              <p className="max-w-3xl text-3xl font-semibold leading-tight md:text-5xl">{project.summary}</p>
-            </div>
-            <div className="grid gap-4">
-              {project.facts.map((fact, index) => (
-                <div className="grid gap-4 rounded-[30px] border border-[var(--soft-line)] bg-white/70 p-5 md:grid-cols-[80px_1fr]" key={fact}>
-                  <span className="text-sm text-[var(--ink-faint)]">0{index + 1}</span>
-                  <p className="text-lg leading-8 text-[var(--ink-soft)]">{fact}</p>
-                </div>
+  return (
+    <main className="relative overflow-hidden">
+      <SiteNav />
+      <div aria-hidden className="absolute inset-x-0 top-0 -z-10">
+        <span className="bloom bloom-blue bloom-drift-a left-[-10%] top-[-6%] h-[40vw] w-[40vw] min-h-[340px] min-w-[340px]" />
+        <span className="bloom bloom-teal bloom-drift-b right-[-12%] top-[10%] h-[36vw] w-[36vw] min-h-[300px] min-w-[300px]" />
+      </div>
+
+      <article className="mx-auto max-w-[900px] px-5 pb-28 pt-36 md:px-10 md:pt-44">
+        <Reveal>
+          <Link href="/#work" className="link-quiet text-[0.9rem]">
+            ← 返回全部作品
+          </Link>
+
+          <p className="eyebrow mt-10">
+            Work N°{project.index} — {project.type}
+          </p>
+          <h1 className="display-hair mt-6 text-[clamp(2.4rem,6vw,4.6rem)] leading-[1.2]">
+            {project.titleZh}
+          </h1>
+          <p className="en-line mt-4 text-[clamp(0.88rem,1.4vw,1.05rem)] text-ink-faint">
+            {project.title} — {project.subtitle}
+          </p>
+
+          <p className="mt-9 max-w-[54ch] text-[1rem] leading-[2.05] text-ink-soft">
+            {project.summary}
+          </p>
+
+          <div className="mt-8 flex flex-wrap gap-2.5">
+            <span className="chip-veil">{project.role}</span>
+            {project.period ? (
+              <span className="chip-veil">{project.period}</span>
+            ) : null}
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.1}>
+          <div className="rule-aurora mt-14 w-full" />
+          <p className="eyebrow mt-12">我做了什么 — What I Did</p>
+          <ol className="mt-8 space-y-8">
+            {project.facts.map((fact, i) => (
+              <li key={fact} className="flex gap-7">
+                <span className="metric-veil shrink-0 text-4xl leading-none md:text-5xl">
+                  {String(i + 1).padStart(2, "0")}
+                </span>
+                <p className="max-w-[56ch] pt-1 text-[0.98rem] leading-[2] text-ink-soft">
+                  {fact}
+                </p>
+              </li>
+            ))}
+          </ol>
+        </Reveal>
+
+        {project.images.length > 0 ? (
+          <Reveal delay={0.12}>
+            <div className="rule-aurora mt-14 w-full" />
+            <p className="eyebrow mt-12">现场与产出 — Scenes</p>
+            <div className="mt-8 flex flex-wrap gap-8">
+              {project.images.map((image) => (
+                <figure
+                  key={image.src}
+                  className="photo-veil img-zoom w-full max-w-[520px]"
+                >
+                  <img
+                    src={withBasePath(image.src)}
+                    alt={image.alt}
+                    className="block w-full object-cover"
+                  />
+                </figure>
               ))}
             </div>
-            {project.materials.length ? (
-              <div className="mt-8 flex flex-wrap gap-3">
-                {project.materials.map((material) => (
-                  <a className="signal-button" href={material.href} key={material.href} target="_blank" rel="noreferrer">
-                    {material.label}
-                  </a>
-                ))}
-              </div>
-            ) : null}
-            <DetailGallery images={project.images} />
-          </article>
-        </section>
-      </div>
-    </main>
-  );
-}
+          </Reveal>
+        ) : null}
 
-function InfoPill({ label, value }: { label: string; value: string }) {
-  return (
-    <div className="rounded-[24px] border border-[var(--soft-line)] bg-white/70 p-4">
-      <p className="text-xs text-[var(--ink-faint)]">{label}</p>
-      <p className="mt-1 text-sm font-semibold leading-6">{value}</p>
-    </div>
+        {project.projectUrl || project.materials.length > 0 ? (
+          <Reveal delay={0.14}>
+            <div className="mt-12 flex flex-wrap gap-4">
+              {project.projectUrl ? (
+                <a
+                  href={project.projectUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="pill-aurora"
+                >
+                  项目地址 <span aria-hidden>↗</span>
+                </a>
+              ) : null}
+              {project.materials.map((material) => (
+                <a
+                  key={material.href}
+                  href={material.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="pill-quiet"
+                >
+                  {material.label} <span aria-hidden>↗</span>
+                </a>
+              ))}
+            </div>
+          </Reveal>
+        ) : null}
+
+        <Reveal delay={0.08}>
+          <nav className="mt-20 grid gap-5 sm:grid-cols-2">
+            <Link
+              href={`/work/${prev.slug}/`}
+              className="card-veil block p-7 text-left"
+            >
+              <p className="eyebrow">← Prev 上一个</p>
+              <p className="display-mid mt-3 text-[1.15rem] leading-snug">
+                {prev.titleZh}
+              </p>
+            </Link>
+            <Link
+              href={`/work/${next.slug}/`}
+              className="card-veil block p-7 text-left sm:text-right"
+            >
+              <p className="eyebrow">Next 下一个 →</p>
+              <p className="display-mid mt-3 text-[1.15rem] leading-snug">
+                {next.titleZh}
+              </p>
+            </Link>
+          </nav>
+        </Reveal>
+      </article>
+    </main>
   );
 }

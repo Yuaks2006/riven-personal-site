@@ -19,9 +19,8 @@ describe("site content contract", () => {
 
   it("defines the required public routes and content collections", () => {
     expect(navItems.map((item) => item.href)).toEqual([
-      "/",
       "/#work",
-      "/#road",
+      "/#connect",
       "/#skills",
       "/#experience",
       "/#contact"

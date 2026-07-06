@@ -1,14 +1,17 @@
 import type { NextConfig } from "next";
 
-const basePath = process.env.NEXT_PUBLIC_BASE_PATH || undefined;
+// On Vercel: native Next.js runtime (no static export, no basePath prefix)
+// Elsewhere (local / GitHub Pages): static export with basePath for subdirectory hosting
+const isVercel = process.env.VERCEL === "1";
+const basePath = isVercel ? undefined : (process.env.NEXT_PUBLIC_BASE_PATH || undefined);
 
 const nextConfig: NextConfig = {
-  output: "export",
+  ...(isVercel ? {} : { output: "export" }),
   outputFileTracingRoot: process.cwd(),
   basePath,
   assetPrefix: basePath,
   images: {
-    unoptimized: true
+    unoptimized: !isVercel
   },
   trailingSlash: true
 };

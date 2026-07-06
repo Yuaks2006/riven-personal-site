@@ -5,3 +5,6 @@ node_modules/
 .server.pid
 qa-*.png
 *.log
+font-src/
+
+.vercel
