@@ -106,7 +106,7 @@ export default async function WorkDetailPage({
                   rel="noreferrer"
                   className="pill-aurora"
                 >
-                  项目地址 <span aria-hidden>↗</span>
+                  {project.projectUrlLabel ?? "项目地址"} <span aria-hidden>↗</span>
                 </a>
               ) : null}
               {project.materials.map((material) => (

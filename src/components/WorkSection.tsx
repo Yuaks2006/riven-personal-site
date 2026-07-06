@@ -16,14 +16,13 @@ export default function WorkSection() {
         eyebrow="Selected Work — 精选项目"
         zh="把想法，做成可见的作品"
         accentWord="可见"
-        en="Evidence over adjectives — three projects, three real scenes."
+        en="Evidence over adjectives — four projects, four real scenes."
       />
 
       <div className="mt-16 space-y-8 md:mt-20 md:space-y-10">
         {projects.map((project, i) => (
           <Reveal key={project.slug} delay={i * 0.05}>
-            <Link
-              href={`/work/${project.slug}/`}
+            <article
               className={`card-veil ${cardTints[i % 3]} group block overflow-hidden p-8 md:p-14`}
             >
               <div className="grid items-center gap-10 md:grid-cols-[1.25fr_1fr] md:gap-14">
@@ -46,17 +45,31 @@ export default function WorkSection() {
                       <span className="chip-veil">{project.period}</span>
                     ) : null}
                   </div>
-                  <p className="mt-9 text-[0.95rem] font-medium text-ink">
-                    <span className="link-quiet !text-ink">
+                  <div className="mt-9 flex flex-wrap gap-4">
+                    <Link
+                      href={`/work/${project.slug}/`}
+                      className="pill-quiet"
+                    >
                       深入了解
                       <span
                         aria-hidden
-                        className="ml-1 inline-block transition-transform duration-500 group-hover:translate-x-1.5"
+                        className="inline-block transition-transform duration-500 group-hover:translate-x-1.5"
                       >
                         →
                       </span>
-                    </span>
-                  </p>
+                    </Link>
+                    {project.projectUrl ? (
+                      <a
+                        href={project.projectUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="pill-aurora"
+                      >
+                        {project.projectUrlLabel ?? "项目地址"}
+                        <span aria-hidden>↗</span>
+                      </a>
+                    ) : null}
+                  </div>
                 </div>
 
                 <div className="flex items-center justify-center">
@@ -79,7 +92,7 @@ export default function WorkSection() {
                   )}
                 </div>
               </div>
-            </Link>
+            </article>
           </Reveal>
         ))}
       </div>

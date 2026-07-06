@@ -16,6 +16,7 @@ export type Project = {
   type: string;
   facts: string[];
   projectUrl?: string;
+  projectUrlLabel?: string;
   materials: { label: string; href: string }[];
   images: ImageAsset[];
 };
@@ -89,21 +90,29 @@ export const projects: Project[] = [
     slug: "flash-idea",
     index: "01",
     title: "Flash Idea",
-    subtitle: "On-device AI note app",
-    titleZh: "端侧 AI 笔记 APP",
+    subtitle: "On-device AI Agent note app",
+    titleZh: "Flash Idea 闪念",
     summary:
-      "面向移动端灵感记录场景的 AI 笔记产品探索，覆盖调研、产品定位、移动端页面与数据流设计。",
-    period: "2026",
+      "面向灵感捕捉、AI 整理、知识关联与行动转化的 Android 应用，把零散想法推进成可整理、可追踪、可执行的个人智能工作流。",
+    period: "2026.04 — 2026.07",
     role: "队长 / 产品与技术负责人",
-    type: "AI 竞赛项目 · Android App · AI 产品策划",
+    type: "AIGC 竞赛项目 · Android App · AI Agent 笔记产品",
     facts: [
-      "规划并带领团队完成前期调研、产品设计、技术方案、Agent 框架设计、协同开发与宣传材料产出。",
-      "完成 6 轮市场调研与竞品分析，形成产品定位与功能优先级。",
-      "主导 Kotlin + Jetpack Compose 移动端方案。",
-      "设计笔记列表、详情、AI 对话、图谱、洞察流等 7 个核心页面与数据流。"
+      "作为队长主导 vivo 蓝心 AIGC 创新赛复赛项目，推进调研、产品设计、技术架构、协同开发与复赛材料产出。",
+      "完成 6 轮市场调研与竞品分析，形成产品定位、用户痛点、功能优先级与版本路线。",
+      "设计端侧优先、云端增强、本地保底的多模型路由，预留 vivo 端侧模型 SDK 接口并支持 OpenAI-compatible 模型配置。",
+      "基于 Kotlin + Jetpack Compose + Room + Hilt 推进 7 个核心页面与本地数据流，覆盖灵感笔记、Agent 工作台、知识图谱、洞察流和设置管理。"
     ],
+    projectUrl: "https://github.com/Yuaks2006/Flash-Idea",
+    projectUrlLabel: "GitHub",
     materials: [],
-    images: []
+    images: [
+      {
+        src: "/assets/work/flash-idea-cover.png",
+        alt: "Flash Idea 闪念项目封面",
+        kind: "poster"
+      }
+    ]
   },
   {
     slug: "service-agent",
@@ -112,7 +121,7 @@ export const projects: Project[] = [
     subtitle: "Customer-service agent solution",
     titleZh: "企业客服智能体解决方案",
     summary:
-      "面向家装企业客服自动化场景，拆解需求并参与搭建获客、沟通、沉淀和销售跟进链路。",
+      "面向家装企业客服自动化场景，将获客、微信沟通、AI 回复、CRM 沉淀、销售跟进链路整理成可运行的业务演示方案。",
     period: "2026.04 — 2026.05",
     role: "核心技术骨干 / 方案设计与 Agent 协同开发",
     type: "B 端 AI 应用 · RPA 自动化 · CRM",
@@ -121,31 +130,70 @@ export const projects: Project[] = [
       "搭建 FastAPI + SQLAlchemy + SQLite 线索底座。",
       "协同完成 PC 微信 UIA 自动客服控制台、飞书 Bitable 同步与 Sales Dashboard 的接口和运行文档。"
     ],
+    projectUrl: "https://github.com/Yuaks2006/customer-service-agent-2026",
+    projectUrlLabel: "GitHub",
     materials: [],
-    images: []
+    images: [
+      {
+        src: "/assets/work/service-agent-cover.png",
+        alt: "企业客服智能体解决方案封面",
+        kind: "poster"
+      }
+    ]
   },
   {
     slug: "digital-museum",
     index: "03",
-    title: "Digital Museum",
-    subtitle: "Shenzhen Cultural Expo website",
-    titleZh: "深圳文博会数字博物馆网站",
+    title: "Bangeng Zhai",
+    subtitle: "Intangible heritage digital museum",
+    titleZh: "“板耕斋”非遗数字博物馆",
     summary:
-      "在深圳文博会现场对接企业需求，作为唯一技术开发人员推进数字博物馆网站原型与后续迭代。",
+      "为江西安义邹氏兄弟三项非遗技艺构建数字化展示与商业化平台，把现场需求推进为已上线的数字博物馆。",
     period: "2026.05.22 — 2026.05.25",
     role: "参赛者 / 唯一技术开发人员",
-    type: "AI 黑客松 · 商业需求对接",
+    type: "AI 黑客松 · 非遗数字化 · 网站上线",
     facts: [
-      "在团队中担任唯一技术开发人员，现场对接企业真实需求。",
-      "4 天黑客松中团队与 3 家企业取得后续合作意向。",
-      "会后继续为江西邹氏兄弟「板耕斋」工作室迭代数字博物馆网站。"
+      "在深圳文博会现场对接企业真实需求，作为团队唯一技术开发人员推进网站原型与后续迭代。",
+      "围绕板耕斋非遗工坊，梳理传承人、三项技艺、作品展廊、AI 体验、文创商城与联系模块。",
+      "完成 GitHub Pages 上线部署，公开访问地址为 yuaks2006.github.io/bangeng-zhai。",
+      "项目团队在 4 天黑客松中与 3 家企业取得后续合作意向。"
     ],
+    projectUrl: "https://yuaks2006.github.io/bangeng-zhai/",
+    projectUrlLabel: "访问网站",
     materials: [],
     images: [
       {
-        src: "/assets/events/culture-expo-roadshow.jpg",
-        alt: "Riven 在深圳文博会现场展示数字博物馆项目",
-        kind: "photo"
+        src: "/assets/work/bangeng-zhai-cover.png",
+        alt: "板耕斋非遗数字博物馆概念封面",
+        kind: "poster"
+      }
+    ]
+  },
+  {
+    slug: "your-job-skill",
+    index: "04",
+    title: "Your Job Skill",
+    subtitle: "Agent Skill for Chinese job-seeking workflows",
+    titleZh: "Your Job Skill",
+    summary:
+      "面向中文求职场景的开源 Agent Skill，把个人信息采集、候选人画像、岗位推荐、JD 解析、定向简历与面试准备整合成完整工作流。",
+    period: "2026.07.03 — 2026.07.06",
+    role: "项目作者 / Skill 设计者 / 工程实现",
+    type: "Agent Skill · 开源项目 · 求职工作流",
+    facts: [
+      "独立设计并开源 Codex-compatible Skill，发布 GitHub 仓库与 v0.1.0 Release。",
+      "设计 Stage Announcement Protocol，让 Agent 在每个求职环节说明当前阶段、任务分工、用户动作、完成条件和下一步。",
+      "新增 Candidate Profile 与 Reverse Screening 流程，推动用户从真实招聘渠道筛选 JD 后再生成定向简历。",
+      "编写简历 HTML/PDF 渲染脚本、Skill 包校验脚本和 pytest 测试，发布前完成 13 项自动化测试与使用烟测。"
+    ],
+    projectUrl: "https://github.com/Yuaks2006/your-job-skill",
+    projectUrlLabel: "GitHub",
+    materials: [],
+    images: [
+      {
+        src: "/assets/work/your-job-skill-cover.png",
+        alt: "Your Job Skill 项目封面",
+        kind: "poster"
       }
     ]
   }

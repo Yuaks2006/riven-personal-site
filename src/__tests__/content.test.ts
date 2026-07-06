@@ -25,13 +25,13 @@ describe("site content contract", () => {
       "/#experience",
       "/#contact"
     ]);
-    expect(projects).toHaveLength(3);
+    expect(projects).toHaveLength(4);
     expect(waytoagiEvents.length).toBeGreaterThanOrEqual(7);
     expect(workExperience).toHaveLength(1);
   });
 
-  it("keeps optional links hidden when unavailable", () => {
-    expect(projects.every((project) => project.projectUrl === undefined)).toBe(true);
+  it("keeps public project links available for selected work", () => {
+    expect(projects.every((project) => project.projectUrl)).toBe(true);
     expect(projects.every((project) => project.materials.length === 0)).toBe(true);
   });
 });
